@@ -9,38 +9,36 @@ export default class Timer extends React.Component{
             h: Math.floor(props.time/3600000),
             m: Math.floor((props.time/1000%3600)/60),
             s: Math.floor((props.time/1000)%60),
-            inOn: false,
             start: false
         };
         this.resetTimer = this.resetTimer.bind(this);
-        // this.startTimer = this.startTimer.bind(this);
-        // this.stopTimer = this.stopTimer.bind(this);
-        setInterval(
+        this.startTimer = this.startTimer.bind(this);
+        this.stopTimer = this.stopTimer.bind(this);
+    }
+
+    startTimer() {
+        this.timer = setInterval(
             () => {
               let time = parseInt(this.state.s)+parseInt(this.state.m*60)+parseInt(this.state.h*3600)-1
               this.setState({
                 h: Math.floor(time/3600),
                 m: Math.floor((time%3600)/60),
-                s: Math.floor(time%60)
+                s: Math.floor(time%60),
+                start: true
               })
             },
             1000
         )
+        this.setState({
+            start: true
+        })
     }
-    // startTimer() {
-    //     this.setState({
-    //         isOn: true,
-    //         time: this.state.time,
-    //         start: true
-    //     })
-    //     this.timer = setInterval(() => this.setState({
-    //         time: this.state.time -1000,
-    //     }), 1);
-    // }
-    // stopTimer() {
-    //     this.setState({isOn: false})
-    //     clearInterval(this.timer)
-    // }
+
+    stopTimer() {
+        this.setState({isOn: false, start: true})
+        clearInterval(this.intervalId)
+    }
+
     resetTimer() {
         this.setState({
             h: Math.floor(this.props.time/3600000),
@@ -70,7 +68,7 @@ export default class Timer extends React.Component{
             </div>
             <div className="buttons">
                 {/* start/stop */}
-                <Button id="start" color="primary frst" >{this.state.start?'Stop':'Start'}</Button>{' '}
+                <Button id="start" color="primary frst" onClick={this.state.start?this.stopTimer:this.startTimer}>{this.state.start?'Stop':'Start'}</Button>{' '}
                 {/* reset */}
                 <Button id="stop" color="primary scnd" onClick={this.resetTimer}>Reset</Button>{' '}
                {/* { let start = (this.state.time == 0) ? <button onClick={this.startTimer}>start</button> : null
