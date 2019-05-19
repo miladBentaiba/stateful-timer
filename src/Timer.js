@@ -69,10 +69,8 @@ export default class Timer extends React.Component{
               <p className="label">Second</p>
             </div>
             <div className="buttons">
-                {/* start/stop */}
-                <Button id="start" color="primary frst" onClick={this.state.start?this.stopTimer:this.startTimer}>{this.state.start?'Resume':'Start'}</Button>{' '}
-                {/* reset */}
-                <Button id="stop" color="primary scnd" onClick={this.resetTimer}>Reset</Button>{' '}
+                <Button id="start" color="primary" className="frst" onClick={this.state.start?this.stopTimer:this.startTimer}>{this.state.start?'Resume':'Start'}</Button>{' '}
+                <Button id="stop" color="primary" className="scnd" onClick={this.resetTimer}>Reset</Button>{' '}
             </div>
           </div>
         );
