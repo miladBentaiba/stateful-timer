@@ -35,8 +35,8 @@ export default class Timer extends React.Component{
     }
 
     stopTimer() {
-        this.setState({isOn: false, start: true})
-        clearInterval(this.intervalId)
+        this.setState({ start: false})
+        clearInterval(this.timer)
     }
 
     resetTimer() {
@@ -47,6 +47,8 @@ export default class Timer extends React.Component{
             inOn: false,
             start: false
         })
+        this.setState({ start: false})
+        clearInterval(this.timer)
     }
     render() {
         console.log("state", this.state)
@@ -68,13 +70,9 @@ export default class Timer extends React.Component{
             </div>
             <div className="buttons">
                 {/* start/stop */}
-                <Button id="start" color="primary frst" onClick={this.state.start?this.stopTimer:this.startTimer}>{this.state.start?'Stop':'Start'}</Button>{' '}
+                <Button id="start" color="primary frst" onClick={this.state.start?this.stopTimer:this.startTimer}>{this.state.start?'Resume':'Start'}</Button>{' '}
                 {/* reset */}
                 <Button id="stop" color="primary scnd" onClick={this.resetTimer}>Reset</Button>{' '}
-               {/* { let start = (this.state.time == 0) ? <button onClick={this.startTimer}>start</button> : null
-                let stop = (this.state.time == 0 || !this.state.isOn) ? null : <button onClick={this.stopTimer}>stop</button>
-                let resume = (this.state.time == 0 || this.state.isOn) ? null : <button onClick={this.startTimer}>resume</button>
-                let reset = (this.state.time == 0 || this.state.isOn) ? null : <button onClick={this.resetTimer}>reset</button>} */}
             </div>
           </div>
         );
