@@ -12,7 +12,9 @@ export default class Timer extends React.Component{
             inOn: false,
             start: false
         };
-
+        this.resetTimer = this.resetTimer.bind(this);
+        // this.startTimer = this.startTimer.bind(this);
+        // this.stopTimer = this.stopTimer.bind(this);
         setInterval(
             () => {
               let time = parseInt(this.state.s)+parseInt(this.state.m*60)+parseInt(this.state.h*3600)-1
@@ -24,9 +26,7 @@ export default class Timer extends React.Component{
             },
             1000
         )
-        console.log(this.state)
     }
-    
     // startTimer() {
     //     this.setState({
     //         isOn: true,
@@ -37,17 +37,19 @@ export default class Timer extends React.Component{
     //         time: this.state.time -1000,
     //     }), 1);
     // }
-
     // stopTimer() {
     //     this.setState({isOn: false})
     //     clearInterval(this.timer)
     // }
-
-    // resetTimer() {
-    //     this.setState({time: 0, isOn: false})
-    // }
-    setInterval
-
+    resetTimer() {
+        this.setState({
+            h: Math.floor(this.props.time/3600000),
+            m: Math.floor((this.props.time/1000%3600)/60),
+            s: Math.floor((this.props.time/1000)%60),
+            inOn: false,
+            start: false
+        })
+    }
     render() {
         console.log("state", this.state)
         return (
@@ -68,9 +70,9 @@ export default class Timer extends React.Component{
             </div>
             <div className="buttons">
                 {/* start/stop */}
-                <Button id="start" color="primary frst">Start</Button>{' '}
+                <Button id="start" color="primary frst" >{this.state.start?'Stop':'Start'}</Button>{' '}
                 {/* reset */}
-                <Button id="stop" color="primary scnd">Reset</Button>{' '}
+                <Button id="stop" color="primary scnd" onClick={this.resetTimer}>Reset</Button>{' '}
                {/* { let start = (this.state.time == 0) ? <button onClick={this.startTimer}>start</button> : null
                 let stop = (this.state.time == 0 || !this.state.isOn) ? null : <button onClick={this.stopTimer}>stop</button>
                 let resume = (this.state.time == 0 || this.state.isOn) ? null : <button onClick={this.startTimer}>resume</button>
