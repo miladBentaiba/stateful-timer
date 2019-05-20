@@ -24,7 +24,6 @@ export default class Timer extends React.Component{
                 h: Math.floor(time/3600),
                 m: Math.floor((time%3600)/60),
                 s: Math.floor(time%60),
-                start: true
               })
             },
             1000
@@ -44,10 +43,8 @@ export default class Timer extends React.Component{
             h: Math.floor(this.props.time/3600000),
             m: Math.floor((this.props.time/1000%3600)/60),
             s: Math.floor((this.props.time/1000)%60),
-            inOn: false,
             start: false
         })
-        this.setState({ start: false})
         clearInterval(this.timer)
     }
     render() {
